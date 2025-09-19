@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-<link href="/dist/css/main.min.css" rel="stylesheet"> 
+<link href="public/dist/css/main.min.css" rel="stylesheet"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -66,13 +66,13 @@
 
             Ipsum magna est anim, eiusmod non. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum. Quis mollit laborum, duis voluptate aliquip.
 
-            Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum.
+          Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum.
         </p>
     </div>
 </main>
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
-    <script src="/dist/js/main.js"></script>
+    <script src="public/dist/js/main.js"></script>
     <div class="container">
         <span class="text-body-secondary">Place footer content here.</span>
     </div>
