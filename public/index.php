@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-<link href="public/dist/css/main.min.css" rel="stylesheet"> 
+<link href="/dist/css/main.min.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -74,7 +75,7 @@
 </main>
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
-    <script src="public/dist/js/main.js"></script>
+    <script src="dist/js/main.js"></script>
     <div class="container">
         <span class="text-body-secondary">Place footer content here.</span>
     </div>
