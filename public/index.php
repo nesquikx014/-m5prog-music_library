@@ -54,25 +54,64 @@
     </div>
 </nav>
 
+<?php
+// voorbeeldlijst van singles
+$singles = [
+    [
+        "titel" => "Summer Drift",
+        "artiest" => "The Wave",
+        "genre" => "Indie",
+        "afbeelding" => "images/summerdrift.jpg"
+    ],
+    [
+        "titel" => "Blue Horizon",
+        "artiest" => "Luna Sky",
+        "genre" => "Pop",
+        "afbeelding" => "images/bluehorizon.jpg"
+    ],
+    [
+        "titel" => "Bounce Back",
+        "artiest" => "Echo Beats",
+        "genre" => "Dance",
+        "afbeelding" => "images/bounceback.jpg"
+    ],
+    [
+        "titel" => "Nightfall",
+        "artiest" => "The Wave",
+        "genre" => "Indie",
+        "afbeelding" => "images/nightfall.jpg"
+    ],
+    [
+        "titel" => "Starlit",
+        "artiest" => "Luna Sky",
+        "genre" => "Electro Pop",
+        "afbeelding" => "images/starlit.jpg"
+    ]
+];
+?>
+
+
 <main class="container my-5">
-    <h1 class="mt-5">Dit is mijn eerste titel</h1>
-    <div class="col-lg-8 px-0">
-        <p class="fs-5">
-            Aute exercitation pariatur eiusmod. Pariatur eiusmod magna sit in velit, quis esse. Sit in velit quis esse exercitation. Velit quis esse, exercitation reprehenderit culpa qui officia.
-        </p>
-        <p>
-            Id voluptate in ipsum magna est anim, eiusmod. Ipsum magna est anim, eiusmod non. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco.
-
-            Voluptate in ipsum magna est, anim eiusmod. Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea.
-
-            In ipsum magna est. Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu.
-
-            Ipsum magna est anim, eiusmod non. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum. Quis mollit laborum, duis voluptate aliquip.
-
-            Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum.
-        </p>
+    <h1 class="mt-5">Muziek Singles</h1>
+    <div class="row">
+        <?php foreach ($singles as $single): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="<?= htmlspecialchars($single['afbeelding']) ?>" class="card-img-top" alt="<?= htmlspecialchars($single['titel']) ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($single['titel']) ?></h5>
+                        <p class="card-text">
+                            <?= htmlspecialchars($single['artiest']) ?><br>
+                            <small class="text-muted"><?= htmlspecialchars($single['genre']) ?></small>
+                        </p>
+                        <a href="single.php" class="btn btn-primary btn-sm">Bekijk details</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </main>
+
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
     <script src="dist/js/main.js"></script>
