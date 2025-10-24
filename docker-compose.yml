@@ -42,3 +42,4 @@ services:
       PMA_PASSWORD: '${DB_PASSWORD}'
     depends_on:
       - mariadb
+

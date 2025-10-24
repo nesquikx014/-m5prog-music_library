@@ -90,27 +90,29 @@ $singles = [
 ];
 ?>
 
-
 <main class="container my-5">
     <h1 class="mt-5">Muziek Singles</h1>
     <div class="row">
-        <?php foreach ($singles as $single): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="<?= htmlspecialchars($single['afbeelding']) ?>" class="card-img-top" alt="<?= htmlspecialchars($single['titel']) ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($single['titel']) ?></h5>
-                        <p class="card-text">
-                            <?= htmlspecialchars($single['artiest']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($single['genre']) ?></small>
-                        </p>
-                        <a href="single.php" class="btn btn-primary btn-sm">Bekijk details</a>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+
+        <?php
+        // Loop door alle singles heen
+        foreach ($singles as $single) {
+            echo '<div class="col-md-4 mb-4">';
+            echo '  <div class="card">';
+            echo '      <img src="' . $single['afbeelding'] . '" class="card-img-top" alt="' . $single['titel'] . '">';
+            echo '      <div class="card-body">';
+            echo '          <h5 class="card-title">' . $single['titel'] . '</h5>';
+            echo '          <p class="card-text">Artiest: ' . $single['artiest'] . '<br>Genre: ' . $single['genre'] . '</p>';
+            echo '          <a href="single.php" class="btn btn-primary btn-sm">Bekijk details</a>';
+            echo '      </div>';
+            echo '  </div>';
+            echo '</div>';
+        }
+        ?>
+
     </div>
 </main>
+
 
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
