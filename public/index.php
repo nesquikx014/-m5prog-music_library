@@ -1,4 +1,25 @@
 
+<?php
+// verbind met de database
+require_once('../source/database.php');
+
+// query om alle singles op te halen
+$query = "SELECT * FROM singles ORDER BY titel";
+$stmt  = $connection->prepare($query);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// stop alle resultaten in een array
+$singles = [];
+while ($single = $result->fetch_assoc()) {
+    $singles[] = $single;
+}
+
+// nu kan je $singles gebruiken in je HTML om dynamisch te tonen
+?>
+
+
+
 
 
 <!doctype html>
@@ -55,7 +76,7 @@
 </nav>
 
 <?php
-// voorbeeldlijst van singles
+
 $singles = [
     [
         "titel" => "Summer Drift",
@@ -64,10 +85,10 @@ $singles = [
         "afbeelding" => "images/summerdrift.jpg"
     ],
     [
-        "titel" => "Blue Horizon",
-        "artiest" => "Luna Sky",
-        "genre" => "Pop",
-        "afbeelding" => "images/bluehorizon.jpg"
+        "titel" => "Holding My Last Breath",
+        "artiest" => "Evanescence",
+        "genre" => "Rock",
+        "afbeelding" => "images/Evanescence.jpg"
     ],
     [
         "titel" => "Bounce Back",
@@ -76,10 +97,10 @@ $singles = [
         "afbeelding" => "images/bounceback.jpg"
     ],
     [
-        "titel" => "Nightfall",
-        "artiest" => "The Wave",
-        "genre" => "Indie",
-        "afbeelding" => "images/nightfall.jpg"
+        "titel" => "Summer is almost gone",
+        "artiest" => "The Doors",
+        "genre" => "Rock,Blues",
+        "afbeelding" => "images/TheDoors.jpg"
     ],
     [
         "titel" => "Starlit",
@@ -95,9 +116,9 @@ $singles = [
     <div class="row">
 
         <?php
-        // Loop door alle singles heen
+       
         foreach ($singles as $single) {
-            echo '<div class="col-md-4 mb-4">';
+            echo '<div class="col-md-4 m    b-4">';
             echo '  <div class="card">';
             echo '      <img src="' . $single['afbeelding'] . '" class="card-img-top" alt="' . $single['titel'] . '">';
             echo '      <div class="card-body">';
