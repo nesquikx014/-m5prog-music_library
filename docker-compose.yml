@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   php:
     image: wodby/php:latest
@@ -17,8 +19,7 @@ services:
       - './docker:/etc/nginx/conf.d'
     depends_on:
       - php
-    link:
-      - php
+
 
   mariadb:
     image: mariadb:latest
@@ -29,7 +30,7 @@ services:
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
     ports:
-      - "3305:3306"
+      - "3356:3306"
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -37,9 +38,8 @@ services:
     ports:
       - "8805:80"
     environment:
-      PMA_HOST: '${DB_HOST}'
+      PMA_HOST: mariadb
       PMA_USER: '${DB_USERNAME}'
       PMA_PASSWORD: '${DB_PASSWORD}'
     depends_on:
       - mariadb
-
