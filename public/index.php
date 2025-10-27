@@ -1,150 +1,57 @@
-
 <?php
-// verbind met de database
 require_once('../source/database.php');
 
-// query om alle singles op te halen
-$query = "SELECT * FROM singles ORDER BY titel";
-$stmt  = $connection->prepare($query);
+$query = "
+SELECT s.id, s.titel, s.duur, s.release_jaar, s.afbeelding AS single_afbeelding,
+       a.naam AS artiest_naam, a.genre AS artiest_genre
+FROM singles s
+LEFT JOIN artiesten a ON s.artiest_id = a.id
+ORDER BY s.titel
+";
+
+$stmt = $connection->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// stop alle resultaten in een array
-$singles = [];
-while ($single = $result->fetch_assoc()) {
-    $singles[] = $single;
-}
-
-// nu kan je $singles gebruiken in je HTML om dynamisch te tonen
 ?>
 
-
-
-
-
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-<link href="/dist/css/main.min.css" rel="stylesheet">
-
-
+    <title>Muziek Singles</title>
+    <link href="/dist/css/main.min.css" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">Muziek Bibliotheek</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
     </div>
 </nav>
 
-<?php
-
-$singles = [
-    [
-        "titel" => "Summer Drift",
-        "artiest" => "The Wave",
-        "genre" => "Indie",
-        "afbeelding" => "images/summerdrift.jpg"
-    ],
-    [
-        "titel" => "Holding My Last Breath",
-        "artiest" => "Evanescence",
-        "genre" => "Rock",
-        "afbeelding" => "images/Evanescence.jpg"
-    ],
-    [
-        "titel" => "Bounce Back",
-        "artiest" => "Echo Beats",
-        "genre" => "Dance",
-        "afbeelding" => "images/bounceback.jpg"
-    ],
-    [
-        "titel" => "Summer is almost gone",
-        "artiest" => "The Doors",
-        "genre" => "Rock,Blues",
-        "afbeelding" => "images/TheDoors.jpg"
-    ],
-    [
-        "titel" => "Starlit",
-        "artiest" => "Luna Sky",
-        "genre" => "Electro Pop",
-        "afbeelding" => "images/starlit.jpg"
-    ]
-];
-?>
-
 <main class="container my-5">
-    <h1 class="mt-5">Muziek Singles</h1>
+    <h1 class="mb-4">Muziek Singles</h1>
     <div class="row">
-
         <?php
-       
-        foreach ($singles as $single) {
-            echo '<div class="col-md-4 m    b-4">';
-            echo '  <div class="card">';
-            echo '      <img src="' . $single['afbeelding'] . '" class="card-img-top" alt="' . $single['titel'] . '">';
-            echo '      <div class="card-body">';
-            echo '          <h5 class="card-title">' . $single['titel'] . '</h5>';
-            echo '          <p class="card-text">Artiest: ' . $single['artiest'] . '<br>Genre: ' . $single['genre'] . '</p>';
-            echo '          <a href="single.php" class="btn btn-primary btn-sm">Bekijk details</a>';
-            echo '      </div>';
-            echo '  </div>';
-            echo '</div>';
+        while ($single = $result->fetch_assoc()) {
+            include('../source/card.php'); // laad het kaartcomponent
         }
         ?>
-
     </div>
 </main>
 
-
-
 <footer class="footer mt-auto py-3 bg-body-tertiary">
-    <script src="dist/js/main.js"></script>
-    <div class="container">
-        <span class="text-body-secondary">Place footer content here.</span>
+    <div class="container text-center">
+        <span class="text-body-secondary">© 2025 Muziek Bibliotheek</span>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
