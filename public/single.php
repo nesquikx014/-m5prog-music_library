@@ -1,83 +1,69 @@
+<?php
+require_once('../source/database.php');
+
+$single_id = isset($_GET['singleid']) ? (int) $_GET['singleid'] : 1;
+
+$query = "
+SELECT s.id, s.titel, s.duur, s.release_jaar, s.afbeelding AS single_afbeelding,
+       a.naam AS artiest_naam, a.genre AS artiest_genre
+FROM singles s
+LEFT JOIN artiesten a ON s.artiest_id = a.id
+WHERE s.id = ?
+";
+
+$stmt = $connection->prepare($query);
+$stmt->bind_param('i', $single_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$single = $result->fetch_assoc();
+
+if (!$single) {
+    die("❌ Geen single gevonden met ID: " . htmlspecialchars($single_id));
+}
+?>
+
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-<link href="public/dist/css/main.min.css" rel="stylesheet"> 
+    <title><?= htmlspecialchars($single['titel']) ?> - Muziek Bibliotheek</title>
+    <link href="/dist/css/main.min.css" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+        <a class="navbar-brand" href="/index.php">Muziek Bibliotheek</a>
     </div>
 </nav>
 
 <main class="container my-5">
-    <h1 class="mt-5">Dit is mijn eerste titel</h1>
-    <div class="col-lg-8 px-0">
-        <p class="fs-5">
-            Aute exercitation pariatur eiusmod. Pariatur eiusmod magna sit in velit, quis esse. Sit in velit quis esse exercitation. Velit quis esse, exercitation reprehenderit culpa qui officia.
-        </p>
-        <p>
-            Id voluptate in ipsum magna est anim, eiusmod. Ipsum magna est anim, eiusmod non. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco.
-
-            Voluptate in ipsum magna est, anim eiusmod. Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea.
-
-            In ipsum magna est. Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu.
-
-            Ipsum magna est anim, eiusmod non. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum. Quis mollit laborum, duis voluptate aliquip.
-
-            Magna est anim eiusmod non consectetur. Anim eiusmod, non consectetur. Consectetur minim et incididunt tempor nisi proident labore. Et incididunt tempor nisi proident, labore eu ea. Nisi proident labore eu ea, laborum dolore. Eu ea laborum dolore ullamco. Laborum dolore ullamco consequat eu. Ullamco consequat eu sed quis mollit laborum. Eu sed quis mollit laborum.
-        </p>
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            <img src="<?= htmlspecialchars($single['single_afbeelding']) ?>"
+                 class="img-fluid rounded shadow-sm"
+                 alt="<?= htmlspecialchars($single['titel']) ?>">
+        </div>
+        <div class="col-md-7">
+            <h1 class="mt-3"><?= htmlspecialchars($single['titel']) ?></h1>
+            <p class="fs-5 mb-1"><strong>Artiest:</strong> <?= htmlspecialchars($single['artiest_naam']) ?></p>
+            <p class="fs-5 mb-1"><strong>Genre:</strong> <?= htmlspecialchars($single['artiest_genre']) ?></p>
+            <p class="fs-5 mb-1"><strong>Jaar:</strong> <?= htmlspecialchars($single['release_jaar']) ?></p>
+            <p class="fs-5 mb-1"><strong>Duur:</strong> <?= htmlspecialchars($single['duur']) ?> min</p>
+            
+            <a href="/index.php" class="btn btn-secondary mt-3">← Terug naar overzicht</a>
+        </div>
     </div>
 </main>
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
-    <script src="public/dist/js/main.js"></script>
     <div class="container">
-        <span class="text-body-secondary">Place footer content here.</span>
+        <span class="text-body-secondary">© 2025 Muziek Bibliotheek</span>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
